@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AquaPura | Purificación de Agua</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --azul:#0a5c8a;--azul-claro:#1a8fc1;--aqua:#00b4d8;
+  --celeste:#e8f6fd;--blanco:#ffffff;--gris:#555;
+  --sombra:0 4px 20px rgba(0,0,0,.10)
+}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--celeste);color:#333;line-height:1.6}
+
+nav{position:fixed;top:0;left:0;right:0;background:rgba(10,60,100,.95);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.nav-logo{display:flex;align-items:center;gap:10px;color:#fff;font-size:1.25rem;font-weight:700;letter-spacing:.5px;text-decoration:none}
+.nav-logo span{font-size:1.8rem}
+nav ul{list-style:none;display:flex;gap:32px}
+nav ul a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.95rem;font-weight:500;transition:color .2s;cursor:pointer}
+nav ul a:hover{color:var(--aqua)}
+.nav-cta{background:var(--aqua);color:#003a52!important;padding:8px 20px;border-radius:24px;font-weight:700!important}
+.nav-cta:hover{background:#00d4ff!important;transform:translateY(-1px)}
+
+.hero{min-height:100vh;background:linear-gradient(to bottom,rgba(5,40,70,.72) 0%,rgba(5,40,70,.45) 55%,rgba(5,40,70,.78) 100%),url('https://img.freepik.com/fotos-premium/lago-montanas-lago-azul-montanas-al-fondo_865967-8172.jpg') center/cover no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 5% 60px;color:#fff}
+.hero-badge{display:inline-block;background:var(--aqua);color:#003a52;font-size:.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 18px;border-radius:20px;margin-bottom:24px}
+.hero h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;line-height:1.15;max-width:750px;text-shadow:0 2px 8px rgba(0,0,0,.4);margin-bottom:20px}
+.hero h1 em{font-style:normal;color:#7ee8ff}
+.hero p{font-size:1.15rem;max-width:560px;opacity:.9;margin-bottom:36px}
+.btn-group{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.btn{display:inline-block;padding:14px 32px;border-radius:30px;font-size:1rem;font-weight:700;text-decoration:none;cursor:pointer;border:none;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.btn-primary{background:var(--aqua);color:#003a52}
+.btn-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.8)}
+.hero-stats{display:flex;gap:40px;margin-top:60px;flex-wrap:wrap;justify-content:center}
+.stat{text-align:center}
+.stat strong{display:block;font-size:2rem;font-weight:800;color:#7ee8ff}
+.stat span{font-size:.85rem;opacity:.85;letter-spacing:.5px;text-transform:uppercase}
+
+section{padding:90px 5%}
+.section-label{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--azul-claro);margin-bottom:10px}
+.section-title{font-size:clamp(1.7rem,3.5vw,2.5rem);font-weight:800;color:var(--azul);margin-bottom:14px;max-width:600px}
+.section-sub{color:var(--gris);max-width:560px;margin-bottom:50px}
+
+/* SERVICIOS SLIDER */
+#servicios{background:var(--blanco)}
+.servicios-header{text-align:center}
+.servicios-header .section-title,.servicios-header .section-sub{margin-left:auto;margin-right:auto}
+.slider-wrap{position:relative;max-width:1100px;margin:0 auto;overflow:hidden;padding:30px 0 20px}
+.slider{display:flex;gap:24px;transition:transform .6s cubic-bezier(.4,0,.2,1);will-change:transform}
+.card{min-width:280px;flex-shrink:0;background:var(--celeste);border-radius:16px;overflow:hidden;transition:transform .2s,box-shadow .2s;position:relative}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--azul),var(--aqua));opacity:0;transition:opacity .2s;z-index:1}
+.card:hover{transform:translateY(-6px);box-shadow:var(--sombra)}
+.card:hover::before{opacity:1}
+.card img{width:100%;height:190px;object-fit:cover;display:block}
+.card-body{padding:24px 22px}
+.card-icon{width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:16px}
+.icon-aqua{background:#c0f0fc}.icon-azul{background:#c8e8f7}.icon-celeste{background:#d4eef8}
+.card h3{font-size:1.1rem;font-weight:700;color:var(--azul);margin-bottom:8px}
+.card p{color:var(--gris);font-size:.92rem}
+.card-tag{display:inline-block;margin-top:12px;font-size:.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--azul-claro)}
+.nav-btn{position:absolute;top:50%;transform:translateY(-50%);background:var(--azul);color:#fff;border:none;width:46px;height:46px;border-radius:50%;font-size:1.1rem;cursor:pointer;z-index:10;transition:background .2s;display:flex;align-items:center;justify-content:center}
+.nav-btn:hover{background:var(--azul-claro)}
+.sl-left{left:0}.sl-right{right:0}
+.slider-dots{display:flex;justify-content:center;gap:8px;margin-top:16px}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(10,60,100,.2);cursor:pointer;transition:background .2s}
+.dot.active{background:var(--azul)}
+
+/* NOSOTROS */
+#nosotros{background:var(--azul);color:#fff}
+#nosotros .section-label{color:#7ee8ff}
+#nosotros .section-title{color:#fff}
+#nosotros .section-sub{color:rgba(255,255,255,.78)}
+.nosotros-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:18px}
+.feature-list li{display:flex;gap:14px;align-items:flex-start}
+.feat-icon{flex-shrink:0;width:42px;height:42px;background:rgba(255,255,255,.12);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+.feat-text strong{display:block;font-weight:700;margin-bottom:2px}
+.feat-text span{font-size:.9rem;opacity:.8}
+.img-panel{border-radius:20px;overflow:hidden;height:420px;box-shadow:0 12px 40px rgba(0,0,0,.30)}
+.img-panel img{width:100%;height:100%;object-fit:cover}
+
+/* GALERÍA */
+#galeria{background:var(--celeste);text-align:center}
+#galeria .section-title{margin:0 auto 14px}
+#galeria .section-sub{margin:0 auto 40px}
+.gallery{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.gallery-item{border-radius:14px;overflow:hidden;width:220px;height:165px;flex-shrink:0;position:relative}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.gallery-item:hover img{transform:scale(1.07)}
+
+/* PROCESO */
+#proceso{background:var(--blanco);text-align:center}
+#proceso .section-title{margin:0 auto 14px}
+#proceso .section-sub{margin:0 auto 50px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;counter-reset:step}
+.step{padding:32px 20px;background:var(--celeste);border-radius:14px;position:relative;counter-increment:step}
+.step::before{content:counter(step);position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:36px;height:36px;background:var(--aqua);color:#003a52;border-radius:50%;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+.step-icon{font-size:2rem;margin-bottom:12px}
+.step h4{font-weight:700;color:var(--azul);margin-bottom:6px}
+.step p{font-size:.88rem;color:var(--gris)}
+
+/* CONTACTO */
+#contacto{background:linear-gradient(135deg,var(--azul) 0%,#052840 100%);color:#fff;text-align:center}
+#contacto .section-title{color:#fff;margin:0 auto 14px}
+#contacto .section-sub{color:rgba(255,255,255,.88);margin:0 auto 36px}
+.contact-wrap{display:flex;gap:40px;max-width:900px;margin:0 auto;align-items:flex-start;flex-wrap:wrap;justify-content:center}
+.contact-form{flex:1;min-width:300px;display:flex;flex-direction:column;gap:14px;text-align:left}
+.contact-form input,.contact-form textarea,.contact-form select{width:100%;padding:14px 18px;border:none;border-radius:10px;font-size:.98rem;background:rgba(255,255,255,.92);color:#333;outline:none}
+.contact-form textarea{resize:vertical;min-height:110px}
+.contact-form .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.btn-send{width:100%;padding:15px;background:var(--aqua);color:#003a52;border:none;border-radius:30px;font-size:1.05rem;font-weight:700;cursor:pointer;transition:background .2s,transform .15s}
+.btn-send:hover{background:#00d4ff;transform:translateY(-2px)}
+.whatsapp-box{background:rgba(255,255,255,.1);border-radius:16px;padding:30px 28px;text-align:center;min-width:220px;align-self:center}
+.whatsapp-box p{opacity:.85;margin-bottom:20px;font-size:.95rem;line-height:1.5}
+.btn-wa{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#fff;padding:14px 28px;border-radius:30px;text-decoration:none;font-weight:700;font-size:1rem;transition:background .2s,transform .15s}
+.btn-wa:hover{background:#1db954;transform:translateY(-2px)}
+
+footer{background:#03182a;color:rgba(255,255,255,.7);padding:40px 5% 24px;text-align:center}
+.footer-brand{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:8px}
+.footer-links{display:flex;justify-content:center;gap:24px;list-style:none;margin:16px 0;flex-wrap:wrap}
+.footer-links a{color:rgba(255,255,255,.65);text-decoration:none;font-size:.88rem;transition:color .2s;cursor:pointer}
+.footer-links a:hover{color:var(--aqua)}
+.footer-copy{font-size:.8rem;opacity:.5;margin-top:10px}
+
+@media(max-width:768px){
+  nav ul{display:none}
+  .nosotros-grid{grid-template-columns:1fr}
+  .img-panel{height:260px}
+  .contact-form .row{grid-template-columns:1fr}
+  .gallery-item{width:155px;height:125px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#inicio" class="nav-logo"><span>💧</span> AquaPura</a>
+  <ul>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#contacto" class="nav-cta">Contáctenos</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="inicio">
+  <div class="hero-badge">💧 Agua pura · Salud garantizada</div>
+  <h1>Agua <em>100% Purificada</em> para tu Hogar y Negocio</h1>
+  <p>Producimos y distribuimos agua purificada de la más alta calidad con tecnología de osmosis inversa y estrictos controles sanitarios.</p>
+  <div class="btn-group">
+    <a href="#servicios" class="btn btn-primary">Ver nuestros servicios</a>
+    <a href="#contacto" class="btn btn-outline">Solicitar pedido</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><strong>+15</strong><span>Años de experiencia</span></div>
+    <div class="stat"><strong>5 000+</strong><span>Clientes activos</span></div>
+    <div class="stat"><strong>99.9%</strong><span>Pureza del agua</span></div>
+    <div class="stat"><strong>24 h</strong><span>Entrega garantizada</span></div>
+  </div>
+</section>
+
+<!-- SERVICIOS CON SLIDER -->
+<section id="servicios">
+  <div class="servicios-header">
+    <span class="section-label">Lo que ofrecemos</span>
+    <h2 class="section-title">Nuestros Servicios de Purificación</h2>
+    <p class="section-sub">Soluciones completas de agua purificada para hogares, empresas, restaurantes y más.</p>
+  </div>
+  <div class="slider-wrap">
+    <button class="nav-btn sl-left" onclick="moveSlider(-1)">❮</button>
+    <div class="slider" id="slider">
+
+      <div class="card">
+        <img src="https://img.freepik.com/premium-photo/water-glass-hand-filling-glass-with-tap-water-from-faucet-closeup-isolated-white-background_162695-39291.jpg" alt="Purificación">
+        <div class="card-body">
+          <div class="card-icon icon-aqua">🪣</div>
+          <h3>Garrafones de Agua Purificada</h3>
+          <p>Garrafones de 20 litros retornables y desechables con agua libre de bacterias, cloro y metales pesados.</p>
+          <span class="card-tag">▸ 20 L · Retornable · Domicilio</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://img.freepik.com/foto-gratis/repartidor-trabajo-botella-agua_23-2148382520.jpg" alt="Distribución">
+        <div class="card-body">
+          <div class="card-icon icon-azul">🚚</div>
+          <h3>Distribución a Domicilio</h3>
+          <p>Ruta programada de entrega para hogares y negocios. Suscríbete y recibe tu agua puntualmente.</p>
+          <span class="card-tag">▸ Rutas · Suscripción · Puntual</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://img.freepik.com/premium-photo/water-glass-hand-filling-glass-with-tap-water-from-faucet-closeup-isolated-white-background_162695-39291.jpg" alt="Análisis">
+        <div class="card-body">
+          <div class="card-icon icon-celeste">🔬</div>
+          <h3>Análisis de Calidad del Agua</h3>
+          <p>Análisis físico-químico y microbiológico de tu fuente de agua con informe detallado.</p>
+          <span class="card-tag">▸ Físico-químico · Microbiológico</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://aquabright.ru/images/2022-06-27_10-36-13.png" alt="Osmosis">
+        <div class="card-body">
+          <div class="card-icon icon-aqua">🌊</div>
+          <h3>Sistemas de Osmosis Inversa</h3>
+          <p>Instalación de equipos domésticos e industriales para obtener agua ultrapura en tu grifo.</p>
+          <span class="card-tag">▸ Doméstico · Industrial · Instalación</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://img.freepik.com/fotos-premium/diferentes-botellas-agua-aisladas-blanco_392895-123380.jpg" alt="Presentaciones">
+        <div class="card-body">
+          <div class="card-icon icon-azul">🧊</div>
+          <h3>Agua en Presentaciones Variadas</h3>
+          <p>Botellones, botellas de 1.5 L, 500 ml y sachets para eventos, oficinas o consumo personal.</p>
+          <span class="card-tag">▸ Botellones · Botellas · Sachets</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://www.ropurifierfilter.com/upload/image/thumb/mythumb_1000_1000_20180418224613970.jpg" alt="Mantenimiento">
+        <div class="card-body">
+          <div class="card-icon icon-celeste">⚙️</div>
+          <h3>Mantenimiento de Equipos</h3>
+          <p>Servicio técnico para purificadores, filtros y dispensadores. Cambio de membranas y sanitización.</p>
+          <span class="card-tag">▸ Filtros · Membranas · Sanitización</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://img.freepik.com/premium-photo/young-latin-woman-helps-herself-water-from-tap-while-chatting-with-her-friend-after-doing-yoga-exercises_142883-2884.jpg" alt="Empresas">
+        <div class="card-body">
+          <div class="card-icon icon-aqua">🏢</div>
+          <h3>Soluciones para Empresas</h3>
+          <p>Abastecimiento continuo para restaurantes, hoteles, clínicas y oficinas con contratos corporativos.</p>
+          <span class="card-tag">▸ Restaurantes · Hoteles · Clínicas</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://img.freepik.com/premium-photo/blonde-woman-pastel-blue-tshirt-filling-glass-with-tap-water-from-faucet-white-kitchen_144356-8956.jpg" alt="Plantas">
+        <div class="card-body">
+          <div class="card-icon icon-azul">🏭</div>
+          <h3>Plantas Purificadoras Llave en Mano</h3>
+          <p>Diseño, instalación y puesta en marcha de plantas purificadoras para emprendedores y empresas.</p>
+          <span class="card-tag">▸ Diseño · Instalación · Capacitación</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://img.freepik.com/foto-gratis/repartidor-trabajo-botella-agua_23-2148382520.jpg" alt="Eventos">
+        <div class="card-body">
+          <div class="card-icon icon-celeste">🎪</div>
+          <h3>Agua para Eventos</h3>
+          <p>Suministro de agua purificada para bodas, congresos, ferias y eventos masivos.</p>
+          <span class="card-tag">▸ Bodas · Congresos · Ferias</span>
+        </div>
+      </div>
+
+    </div>
+    <button class="nav-btn sl-right" onclick="moveSlider(1)">❯</button>
+  </div>
+  <div class="slider-dots" id="dots"></div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div class="nosotros-grid">
+    <div>
+      <span class="section-label">¿Por qué elegirnos?</span>
+      <h2 class="section-title">Calidad certificada y confianza en cada gota</h2>
+      <p class="section-sub">Cumplimos con todas las normas sanitarias vigentes y aplicamos los más altos estándares de purificación para garantizar tu salud.</p>
+      <ul class="feature-list">
+        <li><div class="feat-icon">✅</div><div class="feat-text"><strong>Certificación sanitaria oficial</strong><span>Registro sanitario vigente y auditorías periódicas de calidad por autoridades de salud.</span></div></li>
+        <li><div class="feat-icon">🔬</div><div class="feat-text"><strong>Tecnología de osmosis inversa</strong><span>Eliminamos el 99.9% de bacterias, virus, metales pesados y contaminantes del agua.</span></div></li>
+        <li><div class="feat-icon">🚚</div><div class="feat-text"><strong>Entrega rápida y puntual</strong><span>Rutas diarias con confirmación por WhatsApp. Nunca te quedas sin agua.</span></div></li>
+        <li><div class="feat-icon">♻️</div><div class="feat-text"><strong>Envases retornables</strong><span>Programa de retorno de garrafones que reduce el plástico y cuida el medioambiente.</span></div></li>
+      </ul>
+    </div>
+    <div class="img-panel">
+      <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=900&auto=format&fit=crop" alt="Planta purificadora"/>
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section id="galeria">
+  <span class="section-label">Nuestro trabajo</span>
+  <h2 class="section-title">Galería</h2>
+  <p class="section-sub">Agua purificada para cada necesidad, entregada con calidad y compromiso.</p>
+  <div class="gallery">
+    <div class="gallery-item"><img src="https://img.freepik.com/premium-photo/young-latin-woman-helps-herself-water-from-tap-while-chatting-with-her-friend-after-doing-yoga-exercises_142883-2884.jpg" alt="Agua en hogar"></div>
+    <div class="gallery-item"><img src="https://img.freepik.com/premium-photo/blonde-woman-pastel-blue-tshirt-filling-glass-with-tap-water-from-faucet-white-kitchen_144356-8956.jpg" alt="Agua en cocina"></div>
+    <div class="gallery-item"><img src="https://img.freepik.com/fotos-premium/diferentes-botellas-agua-aisladas-blanco_392895-123380.jpg" alt="Botellas de agua"></div>
+    <div class="gallery-item"><img src="https://img.freepik.com/premium-photo/water-glass-hand-filling-glass-with-tap-water-from-faucet-closeup-isolated-white-background_162695-39291.jpg" alt="Llenado de vaso"></div>
+    <div class="gallery-item"><img src="https://img.freepik.com/foto-gratis/repartidor-trabajo-botella-agua_23-2148382520.jpg" alt="Entrega domicilio"></div>
+    <div class="gallery-item"><img src="https://aquabright.ru/images/2022-06-27_10-36-13.png" alt="Sistema under sink"></div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <span class="section-label">Cómo purificamos</span>
+  <h2 class="section-title">Nuestro proceso de purificación</h2>
+  <p class="section-sub">Un proceso de 4 etapas rigurosas que garantiza agua libre de contaminantes y lista para el consumo humano.</p>
+  <div class="steps">
+    <div class="step"><div class="step-icon">🏗️</div><h4>Captación</h4><p>Tomamos agua de fuentes controladas y la sometemos a un primer filtrado grueso para eliminar partículas sólidas.</p></div>
+    <div class="step"><div class="step-icon">🔍</div><h4>Filtración avanzada</h4><p>Filtros de carbón activado, sedimento y rayos UV para eliminar cloro, sabores y microorganismos.</p></div>
+    <div class="step"><div class="step-icon">💎</div><h4>Osmosis inversa</h4><p>Membranas de 0.0001 micras eliminan el 99.9% de bacterias, virus, nitratos y metales pesados.</p></div>
+    <div class="step"><div class="step-icon">✅</div><h4>Control de calidad</h4><p>Análisis de pH, conductividad y pureza antes del envasado. Solo el agua que supera nuestros estándares llega al cliente.</p></div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <span class="section-label" style="color:rgba(255,255,255,.7)">Hablemos</span>
+  <h2 class="section-title">¿Listo para tomar agua pura?</h2>
+  <p class="section-sub">Déjenos sus datos y le contactamos en menos de 2 horas para coordinar su primer pedido.</p>
+  <div class="contact-wrap">
+    <form class="contact-form" onsubmit="enviar(event)">
+      <div class="row">
+        <input type="text" placeholder="Nombre completo" required/>
+        <input type="tel" placeholder="Teléfono / WhatsApp" required/>
+      </div>
+      <input type="email" placeholder="Correo electrónico" required/>
+      <input type="text" placeholder="Dirección de entrega"/>
+      <select required>
+        <option value="" disabled selected>Servicio de interés</option>
+        <option>Garrafones de Agua Purificada</option>
+        <option>Distribución a Domicilio (suscripción)</option>
+        <option>Análisis de Calidad del Agua</option>
+        <option>Sistema de Osmosis Inversa</option>
+        <option>Agua en Presentaciones Variadas</option>
+        <option>Mantenimiento de Equipos</option>
+        <option>Soluciones para Empresas</option>
+        <option>Planta Purificadora Llave en Mano</option>
+        <option>Agua para Eventos</option>
+      </select>
+      <textarea placeholder="¿Cuántos garrafones necesitas? ¿Con qué frecuencia? Cuéntanos más..."></textarea>
+      <button type="submit" class="btn-send">Solicitar pedido →</button>
+    </form>
+    <div class="whatsapp-box">
+      <p>¿Preferís escribirnos directamente?<br>Estamos disponibles en WhatsApp.</p>
+      <a class="btn-wa" href="https://wa.me/595000000000" target="_blank">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Enviar WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">💧 AquaPura</div>
+  <p>Agua purificada de calidad para tu hogar y negocio</p>
+  <ul class="footer-links">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 AquaPura. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+let idx=0;
+const sliderEl=document.getElementById('slider');
+const dotsEl=document.getElementById('dots');
+
+function getVisible(){return window.innerWidth<600?1:window.innerWidth<900?2:3}
+
+function buildDots(){
+  const vis=getVisible();
+  const total=Math.max(1,sliderEl.children.length-vis+1);
+  dotsEl.innerHTML='';
+  for(let i=0;i<total;i++){
+    const d=document.createElement('div');
+    d.className='dot'+(i===0?' active':'');
+    d.onclick=()=>goTo(i);
+    dotsEl.appendChild(d);
+  }
+}
+
+function goTo(n){
+  const vis=getVisible();
+  const max=sliderEl.children.length-vis;
+  idx=Math.max(0,Math.min(n,max));
+  const w=sliderEl.children[0].offsetWidth+24;
+  sliderEl.style.transform=`translateX(-${idx*w}px)`;
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+}
+
+function moveSlider(dir){goTo(idx+dir)}
+
+buildDots();
+let timer=setInterval(()=>moveSlider(1),3500);
+sliderEl.addEventListener('mouseenter',()=>clearInterval(timer));
+sliderEl.addEventListener('mouseleave',()=>{timer=setInterval(()=>moveSlider(1),3500)});
+window.addEventListener('resize',()=>{buildDots();goTo(0)});
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t)t.scrollIntoView({behavior:'smooth'});
+  });
+});
+
+function enviar(e){
+  e.preventDefault();
+  alert('¡Gracias! Recibimos tu solicitud. Te contactaremos en menos de 2 horas.');
+  e.target.reset();
+}
+</script>
+</body>
+</html>
